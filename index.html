@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="./style.css">
+		<script src="./script.js" defer></script>
+		<title>Interface</title>
+	</head>
+	<body>
+		<main>
+			<div id="person-card">
+				<div id="person-s1">
+					<img id="avatar" src="" alt="Avatar">
+
+					<div id="money-content">
+						<label for="money">Dinheiro:</label><br>
+						<input type="number" name="money" id="money" readonly>
+					</div>
+				</div>
+				
+				<div>
+					<h4>Status</h4>
+					<ul>
+						<li>
+							<label for="str">str</label><br>
+							<div class="progress">
+								<input class="progress-bar" name="str" type="range" max="20" value="3" readonly>
+								<input type="number" class="progress-bar-value" id="" readonly value="3">
+							</div>
+						</li>
+						
+						<li>
+							<label for="vit">vit</label><br>
+							<div class="progress">
+								<input class="progress-bar" name="vit" type="range" max="20" value="3" readonly>
+								<input type="number" class="progress-bar-value" id="" readonly value="3">
+							</div>
+						</li>
+
+						<li>
+							<label for="spd">spd</label><br>
+							<div class="progress">
+								<input class="progress-bar" name="spd" type="range" max="20" value="3" readonly>
+								<input type="number" class="progress-bar-value" id="" readonly value="3">
+							</div>
+						</li>
+
+						<li>
+							<label for="dex">dex</label><br>
+							<div class="progress">
+								<input class="progress-bar" name="dex" type="range" max="20" value="3" readonly>
+								<input type="number" class="progress-bar-value" id="" readonly value="3">
+							</div>
+						</li>
+
+						<li>
+							<label for="int">int</label><br>
+							<div class="progress">
+								<input class="progress-bar" name="int" type="range" max="20" value="3" readonly>
+								<input type="number" class="progress-bar-value" id="" readonly value="3">
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<p>
+					<button id="confirm-button">Confirmar Aprimoramento</button>
+					<button id="close-button">Fechar</button>
+				</p>
+			</div>
+		</main>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	font-family: sans-serif;
+}
+
+body{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#person-card{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .5rem;
+
+	border: 1px #aaa solid;
+  	padding: 2rem;
+}
+
+#avatar{
+	color: #fff;
+	background-color: #000;
+	padding: 1.5rem .5rem;
+	border-radius: 15%;
+}
+
+#person-s1{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+li{
+	list-style: none;
+}
+
+#close-button, #confirm-button, #money{
+	font-size: 1rem;
+	padding: .5rem 1rem;
+}
+
+#money-content{
+	width: 40%;
+}
+
+#money{
+	text-align: center;
+	width: 100%;
+}
+
+.progress{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+  
+.progress-bar{
+	width: 80%;
+}
+  
+.progress-bar-value{
+	font-size: 1rem;
+	width: 11%;
+	border: none;
+}
