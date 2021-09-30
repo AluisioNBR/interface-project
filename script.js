@@ -37,6 +37,27 @@ const Attributes = {
     dex: 3,
     int: 3,
 
+    // Métodos para a atualização individual dos atributos do player
+    updateStr(value){
+        this.str = value
+    },
+    
+    updateVit(value){
+        this.vit = value
+    },
+
+    updateSpd(value){
+        this.spd = value
+    },
+
+    updateDex(value){
+        this.dex = value
+    },
+
+    updateInt(value){
+        this.int = value
+    },
+
     // Método para a atualização dos atributos do player
     updateAttributes(){
         const attributes = document.getElementsByClassName('progress-bar'), indicator = document.getElementsByClassName('progress-bar-value')
@@ -49,6 +70,7 @@ const Attributes = {
         ]
 
         for (let x = 0; x < attributes.length; x++) {
+            
             if(Number(attributes[x].value) > current[x]){
                 let pay = current[x] * 50
                 Money.payment(pay)
@@ -61,6 +83,31 @@ const Attributes = {
 
             else { continue }
 
+            switch (x) {
+                case 0:
+                    Attributes.updateStr(Number(attributes[0].value))
+                    break;
+                
+                case 1:
+                    Attributes.updateVit(Number(attributes[1].value))
+                    break;
+                
+                case 2:
+                    Attributes.updateSpd(Number(attributes[2].value))
+                    break;
+                
+                case 3:
+                    Attributes.updateDex(Number(attributes[3].value))
+                    break;
+                
+                case 4:
+                    Attributes.updateInt(Number(attributes[4].value))
+                    break;
+            
+                default:
+                    break;
+            }
+
             ChangeAttributesValues.resetColors(indicator[x])
             indicator[x].value = Number(attributes[x].value)
 
@@ -72,41 +119,6 @@ const Attributes = {
 
 // Objeto para fazer alterações dinâmicas nos valores dos atributos
 const ChangeAttributesValues = {
-    // Método para alteração dinâmica do str
-    strChange(){
-        const current = document.getElementById('str').value, indicator = document.getElementById('indicator-str')
-        
-        ChangeAttributesValues.colorChange(current, indicator)
-    },
-
-    // Método para alteração dinâmica do vit
-    vitChange(){
-        const current = document.getElementById('vit').value, indicator = document.getElementById('indicator-vit')
-        
-        ChangeAttributesValues.colorChange(current, indicator)
-    },
-    
-    // Método para alteração dinâmica do spd
-    spdChange(){
-        const current = document.getElementById('spd').value, indicator = document.getElementById('indicator-spd')
-        
-        ChangeAttributesValues.colorChange(current, indicator)
-    },
-    
-    // Método para alteração dinâmica do dex
-    dexChange(){
-        const current = document.getElementById('dex').value, indicator = document.getElementById('indicator-dex')
-        
-        ChangeAttributesValues.colorChange(current, indicator)
-    },
-    
-    // Método para alteração dinâmica do int
-    intChange(){
-        const current = document.getElementById('int').value, indicator = document.getElementById('indicator-int')
-        
-        ChangeAttributesValues.colorChange(current, indicator)
-    },
-
     // Método para a alteração dinâmica das cores dos valores
     colorChange(current, indicator){
         if(Attributes.str > current){
@@ -145,6 +157,41 @@ const ChangeAttributesValues = {
         else if(indicator.classList.contains('onDown')){
             indicator.classList.remove('onDown')
         }
+    },
+
+    // Método para alteração dinâmica do str
+    strChange(){
+        const current = document.getElementById('str').value, indicator = document.getElementById('indicator-str')
+        
+        ChangeAttributesValues.colorChange(current, indicator)
+    },
+
+    // Método para alteração dinâmica do vit
+    vitChange(){
+        const current = document.getElementById('vit').value, indicator = document.getElementById('indicator-vit')
+        
+        ChangeAttributesValues.colorChange(current, indicator)
+    },
+    
+    // Método para alteração dinâmica do spd
+    spdChange(){
+        const current = document.getElementById('spd').value, indicator = document.getElementById('indicator-spd')
+        
+        ChangeAttributesValues.colorChange(current, indicator)
+    },
+    
+    // Método para alteração dinâmica do dex
+    dexChange(){
+        const current = document.getElementById('dex').value, indicator = document.getElementById('indicator-dex')
+        
+        ChangeAttributesValues.colorChange(current, indicator)
+    },
+    
+    // Método para alteração dinâmica do int
+    intChange(){
+        const current = document.getElementById('int').value, indicator = document.getElementById('indicator-int')
+        
+        ChangeAttributesValues.colorChange(current, indicator)
     }
 }
 
