@@ -42,7 +42,7 @@ li{
 
 #close-button, #confirm-button, #money{
 	font-size: 1rem;
-	padding: .5rem 1rem;
+	padding: .5rem;
 }
 
 #money-content{
@@ -69,3 +69,15 @@ li{
 	width: 11%;
 	border: none;
 }
+
+/* Classes de Cores Dinâmicas para o JS */
+
+.onUp{
+	color: #0f0;
+}
+
+.onDown{
+	color: #f00;
+}
+
+/* #################################### */
