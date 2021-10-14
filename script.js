@@ -1,24 +1,21 @@
 // Ligação com os botões do HTML
 const confirmButton = document.getElementById('confirm-button'), closeButton = document.getElementById('close-button')
 
-// Hi ;)
-function sayHi(){
-    alert('Hi')
-}
-
 // Objeto para cuidar do dinheiro do player
 const Money = {
     // Saldo do player
-    balance: 5000,
+    balance: localStorage.getItem('balance'),
     
     // Método de aumento de dinheiro
     increment(inc){
         this.balance = this.balance + inc
+        localStorage.setItem('balance', `${this.balance}`)
     },
 
     // Método de pagamento/diminuição de dinheiro
     payment(pay){
         this.balance = this.balance - pay
+        localStorage.setItem('balance', `${this.balance}`)
     },
 
     // Método para a atualização do visor de saldo no HTML
@@ -31,31 +28,36 @@ const Money = {
 // Objeto para cuidar dos atributos do player
 const Attributes = {
     // Atributos do player
-    str: 3,
-    vit: 3,
-    spd: 3,
-    dex: 3,
-    int: 3,
+    str: localStorage.getItem('str'),
+    vit: localStorage.getItem('vit'),
+    spd: localStorage.getItem('spd'),
+    dex: localStorage.getItem('dex'),
+    int: localStorage.getItem('int'),
 
     // Métodos para a atualização individual dos atributos do player
     updateStr(value){
         this.str = value
+        localStorage.setItem('str', `${this.str}`)
     },
     
     updateVit(value){
         this.vit = value
+        localStorage.setItem('vit', `${this.vit}`)
     },
 
     updateSpd(value){
         this.spd = value
+        localStorage.setItem('spd', `${this.spd}`)
     },
 
     updateDex(value){
         this.dex = value
+        localStorage.setItem('dex', `${this.dex}`)
     },
 
     updateInt(value){
         this.int = value
+        localStorage.setItem('int', `${this.int}`)
     },
 
     // Método para a atualização dos atributos do player
@@ -195,8 +197,57 @@ const ChangeAttributesValues = {
     }
 }
 
-// Primeira atualização do visor de dinheiro
-Money.updateMoneyVisor(Money.balance)
+// Escopo para a primeira atualização do visor de dinheiro
+{
+    if(Money.balance == "" || Money.balance == null || isNaN(Money.balance) || Money.balance == undefined){
+        Money.balance = 5000
+        localStorage.setItem('balance', `${Money.balance}`)
+        Money.updateMoneyVisor(Money.balance)
+    }
+
+    else{
+        Money.balance = Number(Money.balance)
+        Money.updateMoneyVisor(Money.balance)
+    }
+}
+
+// Escopo para a atualização dos atributos(Com o armazenamento local)
+{
+    // Atualização do str
+    {
+        if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == undefined) Attributes.updateStr(3)
+
+        else Attributes.str = Number(Attributes.str)
+    }
+
+    // Atualização do vit
+    {
+        if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) Attributes.updateVit(3)
+
+        else Attributes.vit = Number(Attributes.vit)
+    }
+
+    // Atualização do spd
+    {
+        if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) Attributes.updateSpd(3)
+
+        else Attributes.spd = Number(Attributes.spd)
+    }
+
+    // Atualização do dex
+    {
+        if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined) Attributes.updateDex(3)
+
+        else Attributes.dex = Number(Attributes.dex)
+    }
+
+    // Atualização do int
+    {
+        if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) Attributes.updateInt(3)
+
+        else Attributes.int = Number(Attributes.int)
+    }
+}
 
 // Escopo para os eventos de mudança dinâmica
 {
@@ -209,4 +260,6 @@ Money.updateMoneyVisor(Money.balance)
 
 // Eventos de click dos botões do HTML
 confirmButton.addEventListener('click', Attributes.updateAttributes)
-closeButton.addEventListener('click', sayHi)
+closeButton.addEventListener('click', function (){
+    alert('Hi')
+})
