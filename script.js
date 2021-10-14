@@ -83,7 +83,7 @@ const Attributes = {
                 Money.increment(inc)
             }
 
-            else { continue }
+            else continue
 
             switch (x) {
                 case 0:
@@ -122,8 +122,34 @@ const Attributes = {
 // Objeto para fazer alterações dinâmicas nos valores dos atributos
 const ChangeAttributesValues = {
     // Método para a alteração dinâmica das cores dos valores
-    colorChange(current, indicator){
-        if(Attributes.str > current){
+    colorChange(current, indicator, index){
+        let attribute
+        switch (index) {
+            case 0:
+                attribute = Attributes.str
+                break;
+
+            case 1:
+                attribute = Attributes.vit
+                break;
+
+            case 2:
+                attribute = Attributes.spd
+                break;
+
+            case 3:
+                attribute = Attributes.dex
+                break;
+
+            case 4:
+                attribute = Attributes.int
+                break;
+        
+            default:
+                break;
+        }
+
+        if(attribute > current){
             
             if(indicator.classList.contains('onUp')){
                 indicator.classList.remove('onUp')
@@ -133,7 +159,7 @@ const ChangeAttributesValues = {
             indicator.value = current
         }
 
-        else if(Attributes.str < current){
+        else if(attribute < current){
             
             if(indicator.classList.contains('onDown')){
                 indicator.classList.remove('onDown')
@@ -163,100 +189,147 @@ const ChangeAttributesValues = {
 
     // Método para alteração dinâmica do str
     strChange(){
-        const current = document.getElementById('str').value, indicator = document.getElementById('indicator-str')
+        const current = document.getElementById('str').value, indicator = document.getElementById('indicator-str'), index = 0
         
-        ChangeAttributesValues.colorChange(current, indicator)
+        ChangeAttributesValues.colorChange(current, indicator, index)
     },
 
     // Método para alteração dinâmica do vit
     vitChange(){
-        const current = document.getElementById('vit').value, indicator = document.getElementById('indicator-vit')
+        const current = document.getElementById('vit').value, indicator = document.getElementById('indicator-vit'), index = 1
         
-        ChangeAttributesValues.colorChange(current, indicator)
+        ChangeAttributesValues.colorChange(current, indicator, index)
     },
     
     // Método para alteração dinâmica do spd
     spdChange(){
-        const current = document.getElementById('spd').value, indicator = document.getElementById('indicator-spd')
+        const current = document.getElementById('spd').value, indicator = document.getElementById('indicator-spd'), index = 2
         
-        ChangeAttributesValues.colorChange(current, indicator)
+        ChangeAttributesValues.colorChange(current, indicator, index)
     },
     
     // Método para alteração dinâmica do dex
     dexChange(){
-        const current = document.getElementById('dex').value, indicator = document.getElementById('indicator-dex')
+        const current = document.getElementById('dex').value, indicator = document.getElementById('indicator-dex'), index = 3
         
-        ChangeAttributesValues.colorChange(current, indicator)
+        ChangeAttributesValues.colorChange(current, indicator, index)
     },
     
     // Método para alteração dinâmica do int
     intChange(){
-        const current = document.getElementById('int').value, indicator = document.getElementById('indicator-int')
+        const current = document.getElementById('int').value, indicator = document.getElementById('indicator-int'), index = 4
         
-        ChangeAttributesValues.colorChange(current, indicator)
+        ChangeAttributesValues.colorChange(current, indicator, index)
     }
 }
 
-// Escopo para a primeira atualização do visor de dinheiro
-{
-    if(Money.balance == "" || Money.balance == null || isNaN(Money.balance) || Money.balance == undefined){
-        Money.balance = 5000
-        localStorage.setItem('balance', `${Money.balance}`)
-        Money.updateMoneyVisor(Money.balance)
-    }
+// Objeto para monitorar a execução do jogo
+const Game = {
+    init(){
+        // Escopo para a primeira atualização do visor de dinheiro
+        {
+            if(Money.balance == "" || Money.balance == null || isNaN(Money.balance) || Money.balance == undefined){
+                Money.balance = 5000
+                localStorage.setItem('balance', `${Money.balance}`)
+                Money.updateMoneyVisor(Money.balance)
+            }
 
-    else{
-        Money.balance = Number(Money.balance)
-        Money.updateMoneyVisor(Money.balance)
+            else{
+                Money.balance = Number(Money.balance)
+                Money.updateMoneyVisor(Money.balance)
+            }
+        }
+
+        // Escopo para a atualização dos atributos(Com o armazenamento local)
+        {
+            // Atualização do str
+            {
+                if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == undefined) Attributes.updateStr(3)
+
+                else Attributes.str = Number(Attributes.str)
+            }
+
+            // Atualização do vit
+            {
+                if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) Attributes.updateVit(3)
+
+                else Attributes.vit = Number(Attributes.vit)
+            }
+
+            // Atualização do spd
+            {
+                if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) Attributes.updateSpd(3)
+
+                else Attributes.spd = Number(Attributes.spd)
+            }
+
+            // Atualização do dex
+            {
+                if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined) Attributes.updateDex(3)
+
+                else Attributes.dex = Number(Attributes.dex)
+            }
+
+            // Atualização do int
+            {
+                if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) Attributes.updateInt(3)
+
+                else Attributes.int = Number(Attributes.int)
+            }
+
+            // Atualização da exibição dos atributos
+            let progressBar = document.getElementsByClassName('progress-bar'), progressBarValue = document.getElementsByClassName('progress-bar-value')
+
+            for (let x = 0; x < 5; x++) {
+                switch (x) {
+                    case 0:
+                        progressBar[0].value = Attributes.str
+                        progressBarValue[0].value = Attributes.str
+                        break;
+
+                    case 1:
+                        progressBar[1].value = Attributes.vit
+                        progressBarValue[1].value = Attributes.vit
+                        break;
+
+                    case 2:
+                        progressBar[2].value = Attributes.spd
+                        progressBarValue[2].value = Attributes.spd
+                        break;
+
+                    case 3:
+                        progressBar[3].value = Attributes.dex
+                        progressBarValue[3].value = Attributes.dex
+                        break;
+
+                    case 4:
+                        progressBar[4].value = Attributes.int
+                        progressBarValue[4].value = Attributes.int
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+            }
+        }
+
+        // Escopo para os eventos de mudança dinâmica
+        {
+            document.getElementById('str').addEventListener('change', ChangeAttributesValues.strChange)
+            document.getElementById('vit').addEventListener('change', ChangeAttributesValues.vitChange)
+            document.getElementById('spd').addEventListener('change', ChangeAttributesValues.spdChange)
+            document.getElementById('dex').addEventListener('change', ChangeAttributesValues.dexChange)
+            document.getElementById('int').addEventListener('change', ChangeAttributesValues.intChange)
+        }
+    },
+
+    refresh(){
+        this.init()
     }
 }
 
-// Escopo para a atualização dos atributos(Com o armazenamento local)
-{
-    // Atualização do str
-    {
-        if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == undefined) Attributes.updateStr(3)
-
-        else Attributes.str = Number(Attributes.str)
-    }
-
-    // Atualização do vit
-    {
-        if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) Attributes.updateVit(3)
-
-        else Attributes.vit = Number(Attributes.vit)
-    }
-
-    // Atualização do spd
-    {
-        if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) Attributes.updateSpd(3)
-
-        else Attributes.spd = Number(Attributes.spd)
-    }
-
-    // Atualização do dex
-    {
-        if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined) Attributes.updateDex(3)
-
-        else Attributes.dex = Number(Attributes.dex)
-    }
-
-    // Atualização do int
-    {
-        if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) Attributes.updateInt(3)
-
-        else Attributes.int = Number(Attributes.int)
-    }
-}
-
-// Escopo para os eventos de mudança dinâmica
-{
-    document.getElementById('str').addEventListener('change', ChangeAttributesValues.strChange)
-    document.getElementById('vit').addEventListener('change', ChangeAttributesValues.vitChange)
-    document.getElementById('spd').addEventListener('change', ChangeAttributesValues.spdChange)
-    document.getElementById('dex').addEventListener('change', ChangeAttributesValues.dexChange)
-    document.getElementById('int').addEventListener('change', ChangeAttributesValues.intChange)
-}
+Game.init()
 
 // Eventos de click dos botões do HTML
 confirmButton.addEventListener('click', Attributes.updateAttributes)
