@@ -31,12 +31,17 @@ const XP = {
     current: 0,
     max: 100,
 
+    levelViewer: document.getElementById('level-viewer'),
+    xpBarViewer: document.getElementById('xp-bar'),
+
     increment(qnt){
         this.current = this.current + qnt
 
         if(this.current >= this.max){
             this.levelUp()
         }
+
+        else this.updateXPBarViewer()
     },
 
     levelUp(){
@@ -47,7 +52,17 @@ const XP = {
 
         else this.current = 0
 
+        this.updateXPBarViewer()
         this.level = this.level + 1
+        this.updateLevelViewer()
+    },
+
+    updateLevelViewer(){
+        this.levelViewer.innerText = `Nível ${this.level}`
+    },
+
+    updateXPBarViewer(){
+        this.xpBarViewer.value = this.current
     }
 }
 
