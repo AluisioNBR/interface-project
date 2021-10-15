@@ -66,7 +66,7 @@ li{
 #xp-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 2px;
+    width: 0%;
     height: 15px;
     border-radius: 0px; 
 

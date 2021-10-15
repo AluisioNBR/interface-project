@@ -25,6 +25,32 @@ const Money = {
     }
 }
 
+// Objeto para cuidar dos pontos de experiência e do nível do player
+const XP = {
+    level: 1,
+    current: 0,
+    max: 100,
+
+    increment(qnt){
+        this.current = this.current + qnt
+
+        if(this.current >= this.max){
+            this.levelUp()
+        }
+    },
+
+    levelUp(){
+        if(this.current > this.max){
+            let excess = this.current - this.max
+            this.current = 0 + excess
+        }
+
+        else this.current = 0
+
+        this.level = this.level + 1
+    }
+}
+
 // Objeto para cuidar dos atributos do player
 const Attributes = {
     // Atributos do player
