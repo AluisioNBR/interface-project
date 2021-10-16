@@ -27,9 +27,9 @@ const Money = {
 
 // Objeto para cuidar dos pontos de experiência e do nível do player
 const XP = {
-    level: 1,
-    current: 0,
-    max: 100,
+    level: localStorage.getItem('level'),
+    current: localStorage.getItem('xpCurrent'),
+    max: localStorage.getItem('xpMax'),
 
     levelViewer: document.getElementById('level-viewer'),
     xpBarViewer: document.getElementById('xp-bar'),
@@ -52,9 +52,17 @@ const XP = {
 
         else this.current = 0
 
+        this.upXPMax()
+        this.updateXPBarMax()
         this.updateXPBarViewer()
+        
         this.level = this.level + 1
         this.updateLevelViewer()
+    },
+
+    upXPMax(){
+        this.max = this.max + 50
+        localStorage.setItem('xpMax', `${this.max}`)
     },
 
     updateLevelViewer(){
@@ -63,6 +71,11 @@ const XP = {
 
     updateXPBarViewer(){
         this.xpBarViewer.value = this.current
+        
+    },
+
+    updateXPBarMax(){
+        this.xpBarViewer.setAttribute('max', this.max)
     }
 }
 
@@ -368,6 +381,45 @@ const Game = {
             ChangeAttributesValues.spd.addEventListener('change', ChangeAttributesValues.spdChange)
             ChangeAttributesValues.dex.addEventListener('change', ChangeAttributesValues.dexChange)
             ChangeAttributesValues.int.addEventListener('change', ChangeAttributesValues.intChange)
+        }
+
+        // Escopo para a iniciação do XP
+        {
+            // Escopo para a iniciação do nível
+            {
+                if(XP.level == '' || XP.level == null || isNaN(XP.level) || XP.level == undefined){
+                    XP.level = 1
+                    localStorage.setItem('level', `${XP.level}`)
+                }
+
+                else XP.level = Number(XP.level)
+
+                XP.updateLevelViewer()
+            }
+
+            // Escopo para a inicialização do XP atual
+            {
+                if(XP.current == '' || XP.current == null || isNaN(XP.current) || XP.current == undefined){
+                    XP.current = 0
+                    localStorage.setItem('xpCurrent', `${XP.current}`)
+                }
+
+                else XP.current = Number(XP.current)
+
+                XP.updateXPBarViewer()
+            }
+
+            // Escopo para a inicialização do XP máximo
+            {
+                if(XP.max == '' || XP.max == null || isNaN(XP.max) || XP.max == undefined){
+                    XP.max = 100
+                    localStorage.setItem('xpMax', `${XP.max}`)
+                }
+
+                else XP.max = Number(XP.max)
+
+                XP.updateXPBarMax()
+            }
         }
 
         // Escopo para os eventos de click dos botões do HTML
