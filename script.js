@@ -162,6 +162,12 @@ const Attributes = {
 
 // Objeto para fazer alterações dinâmicas nos valores dos atributos
 const ChangeAttributesValues = {
+    str: document.getElementById('str'),
+    vit: document.getElementById('vit'),
+    spd: document.getElementById('spd'),
+    dex: document.getElementById('dex'),
+    int: document.getElementById('int'),
+
     // Método para a alteração dinâmica das cores dos valores
     colorChange(current, indicator, index){
         let attribute
@@ -230,37 +236,37 @@ const ChangeAttributesValues = {
 
     // Método para alteração dinâmica do str
     strChange(){
-        const current = document.getElementById('str').value, indicator = document.getElementById('indicator-str'), index = 0
+        const indicator = document.getElementById('indicator-str'), index = 0
         
-        ChangeAttributesValues.colorChange(current, indicator, index)
+        ChangeAttributesValues.colorChange(ChangeAttributesValues.str.value, indicator, index)
     },
 
     // Método para alteração dinâmica do vit
     vitChange(){
-        const current = document.getElementById('vit').value, indicator = document.getElementById('indicator-vit'), index = 1
+        const indicator = document.getElementById('indicator-vit'), index = 1
         
-        ChangeAttributesValues.colorChange(current, indicator, index)
+        ChangeAttributesValues.colorChange(ChangeAttributesValues.vit.value, indicator, index)
     },
     
     // Método para alteração dinâmica do spd
     spdChange(){
-        const current = document.getElementById('spd').value, indicator = document.getElementById('indicator-spd'), index = 2
+        const indicator = document.getElementById('indicator-spd'), index = 2
         
-        ChangeAttributesValues.colorChange(current, indicator, index)
+        ChangeAttributesValues.colorChange(ChangeAttributesValues.spd.value, indicator, index)
     },
     
     // Método para alteração dinâmica do dex
     dexChange(){
-        const current = document.getElementById('dex').value, indicator = document.getElementById('indicator-dex'), index = 3
+        const indicator = document.getElementById('indicator-dex'), index = 3
         
-        ChangeAttributesValues.colorChange(current, indicator, index)
+        ChangeAttributesValues.colorChange(ChangeAttributesValues.dex.value, indicator, index)
     },
     
     // Método para alteração dinâmica do int
     intChange(){
-        const current = document.getElementById('int').value, indicator = document.getElementById('indicator-int'), index = 4
+        const indicator = document.getElementById('indicator-int'), index = 4
         
-        ChangeAttributesValues.colorChange(current, indicator, index)
+        ChangeAttributesValues.colorChange(ChangeAttributesValues.int.value, indicator, index)
     }
 }
 
@@ -357,11 +363,19 @@ const Game = {
 
         // Escopo para os eventos de mudança dinâmica
         {
-            document.getElementById('str').addEventListener('change', ChangeAttributesValues.strChange)
-            document.getElementById('vit').addEventListener('change', ChangeAttributesValues.vitChange)
-            document.getElementById('spd').addEventListener('change', ChangeAttributesValues.spdChange)
-            document.getElementById('dex').addEventListener('change', ChangeAttributesValues.dexChange)
-            document.getElementById('int').addEventListener('change', ChangeAttributesValues.intChange)
+            ChangeAttributesValues.str.addEventListener('change', ChangeAttributesValues.strChange)
+            ChangeAttributesValues.vit.addEventListener('change', ChangeAttributesValues.vitChange)
+            ChangeAttributesValues.spd.addEventListener('change', ChangeAttributesValues.spdChange)
+            ChangeAttributesValues.dex.addEventListener('change', ChangeAttributesValues.dexChange)
+            ChangeAttributesValues.int.addEventListener('change', ChangeAttributesValues.intChange)
+        }
+
+        // Escopo para os eventos de click dos botões do HTML
+        {
+            confirmButton.addEventListener('click', Attributes.updateAttributes)
+            closeButton.addEventListener('click', function (){
+                alert('Hi')
+            })
         }
     },
 
@@ -371,9 +385,3 @@ const Game = {
 }
 
 Game.init()
-
-// Eventos de click dos botões do HTML
-confirmButton.addEventListener('click', Attributes.updateAttributes)
-closeButton.addEventListener('click', function (){
-    alert('Hi')
-})
