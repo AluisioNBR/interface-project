@@ -40,7 +40,7 @@ li{
 	list-style: none;
 }
 
-#close-button, #confirm-button, #money{
+#close-button, #confirm-button, #save-button, #money{
 	font-size: 1rem;
 	padding: .5rem;
 }

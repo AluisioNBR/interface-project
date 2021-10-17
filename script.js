@@ -1,5 +1,21 @@
 // Ligação com os botões do HTML
-const confirmButton = document.getElementById('confirm-button'), closeButton = document.getElementById('close-button')
+const confirmButton = document.getElementById('confirm-button'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button')
+
+function saveData(){
+    localStorage.setItem('balance', `${Money.balance}`)
+
+    localStorage.setItem('xpCurrent', `${XP.current}`)
+    localStorage.setItem('level', `${XP.level}`)
+    localStorage.setItem('xpMax', `${XP.max}`)
+
+    localStorage.setItem('str', `${Attributes.str}`)
+    localStorage.setItem('vit', `${Attributes.vit}`)
+    localStorage.setItem('spd', `${Attributes.spd}`)
+    localStorage.setItem('dex', `${Attributes.dex}`)
+    localStorage.setItem('int', `${Attributes.int}`)
+
+    alert("Progresso salvo!!")
+}
 
 // Objeto para cuidar do dinheiro do player
 const Money = {
@@ -9,13 +25,11 @@ const Money = {
     // Método de aumento de dinheiro
     increment(inc){
         this.balance = this.balance + inc
-        localStorage.setItem('balance', `${this.balance}`)
     },
 
     // Método de pagamento/diminuição de dinheiro
     payment(pay){
         this.balance = this.balance - pay
-        localStorage.setItem('balance', `${this.balance}`)
     },
 
     // Método para a atualização do visor de saldo no HTML
@@ -55,14 +69,14 @@ const XP = {
         this.upXPMax()
         this.updateXPBarMax()
         this.updateXPBarViewer()
-        
+
         this.level = this.level + 1
+
         this.updateLevelViewer()
     },
 
     upXPMax(){
         this.max = this.max + 50
-        localStorage.setItem('xpMax', `${this.max}`)
     },
 
     updateLevelViewer(){
@@ -70,8 +84,7 @@ const XP = {
     },
 
     updateXPBarViewer(){
-        this.xpBarViewer.value = this.current
-        
+        this.xpBarViewer.value = this.current    
     },
 
     updateXPBarMax(){
@@ -91,27 +104,22 @@ const Attributes = {
     // Métodos para a atualização individual dos atributos do player
     updateStr(value){
         this.str = value
-        localStorage.setItem('str', `${this.str}`)
     },
     
     updateVit(value){
         this.vit = value
-        localStorage.setItem('vit', `${this.vit}`)
     },
 
     updateSpd(value){
         this.spd = value
-        localStorage.setItem('spd', `${this.spd}`)
     },
 
     updateDex(value){
         this.dex = value
-        localStorage.setItem('dex', `${this.dex}`)
     },
 
     updateInt(value){
         this.int = value
-        localStorage.setItem('int', `${this.int}`)
     },
 
     // Método para a atualização dos atributos do player
@@ -166,7 +174,6 @@ const Attributes = {
 
             ChangeAttributesValues.resetColors(indicator[x])
             indicator[x].value = Number(attributes[x].value)
-
         }
 
         Money.updateMoneyVisor(Money.balance)
@@ -300,39 +307,54 @@ const Game = {
             }
         }
 
-        // Escopo para a atualização dos atributos(Com o armazenamento local)
+        // Escopo para a inicialização dos atributos
         {
             // Atualização do str
             {
-                if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == undefined) Attributes.updateStr(3)
+                if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == "undefined") {
+                    Attributes.updateStr(3)
+                    localStorage.setItem('str', `${Attributes.str}`)
+                }
 
                 else Attributes.str = Number(Attributes.str)
             }
 
             // Atualização do vit
             {
-                if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) Attributes.updateVit(3)
+                if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) {
+                    Attributes.updateVit(3)
+                    localStorage.setItem('vit', `${Attributes.vit}`)
+                }
 
                 else Attributes.vit = Number(Attributes.vit)
             }
 
             // Atualização do spd
             {
-                if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) Attributes.updateSpd(3)
+                if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) {
+                    Attributes.updateSpd(3)
+                    localStorage.setItem('spd', `${Attributes.spd}`)
+                }
 
                 else Attributes.spd = Number(Attributes.spd)
             }
 
             // Atualização do dex
             {
-                if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined) Attributes.updateDex(3)
+                if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined){
+                    Attributes.updateDex(3)
+                    localStorage.setItem('dex', `${Attributes.dex}`)
+                }
 
                 else Attributes.dex = Number(Attributes.dex)
             }
 
             // Atualização do int
             {
-                if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) Attributes.updateInt(3)
+                if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) {
+                    Attributes.updateInt(3)
+                    localStorage.setItem('int', `${Attributes.int}`)
+                }
 
                 else Attributes.int = Number(Attributes.int)
             }
@@ -425,6 +447,7 @@ const Game = {
         // Escopo para os eventos de click dos botões do HTML
         {
             confirmButton.addEventListener('click', Attributes.updateAttributes)
+            saveButton.addEventListener('click', saveData)
             closeButton.addEventListener('click', function (){
                 alert('Hi')
             })
