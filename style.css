@@ -20,7 +20,7 @@ body{
 	gap: .5rem;
 
 	border: 1px #aaa solid;
-  	padding: 2rem .2rem;
+  	padding: 2rem 0px;
 }
 
 #avatar{
@@ -40,7 +40,7 @@ li{
 	list-style: none;
 }
 
-#close-button, #confirm-button, #save-button, #money{
+.button, #money{
 	font-size: 1rem;
 	padding: .5rem;
 }
@@ -54,6 +54,10 @@ li{
 	width: 100%;
 }
 
+#level-content{
+	width: 25%;
+}
+
 #xp-bar{
 	-webkit-appearance: none;
     background: #00dd00;
@@ -63,7 +67,7 @@ li{
     border-radius: 0px;
 }
 
-#xp-bar::-webkit-slider-thumb {
+#xp-bar::-webkit-slider-thumb{
     -webkit-appearance: none;
     appearance: none;
     width: 5%;
@@ -71,6 +75,12 @@ li{
     border-radius: 0px; 
 
     background: #03c203;
+}
+
+#xp-points{
+	font-size: 1rem;
+	width: 30%;
+	border: none;
 }
 
 .progress{

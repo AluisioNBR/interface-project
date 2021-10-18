@@ -6,6 +6,7 @@ function saveData(){
 
     localStorage.setItem('xpCurrent', `${XP.current}`)
     localStorage.setItem('level', `${XP.level}`)
+    localStorage.setItem('xpPoints', `${XP.points}`)
     localStorage.setItem('xpMax', `${XP.max}`)
 
     localStorage.setItem('str', `${Attributes.str}`)
@@ -38,15 +39,16 @@ const Money = {
         visor.value = balance
     }
 }
-
 // Objeto para cuidar dos pontos de experiência e do nível do player
 const XP = {
+    points: localStorage.getItem('xpPoints'),
     level: localStorage.getItem('level'),
     current: localStorage.getItem('xpCurrent'),
     max: localStorage.getItem('xpMax'),
 
     levelViewer: document.getElementById('level-viewer'),
     xpBarViewer: document.getElementById('xp-bar'),
+    xpPointsViewer: document.getElementById('xp-points'),
 
     increment(qnt){
         this.current = this.current + qnt
@@ -70,8 +72,10 @@ const XP = {
         this.updateXPBarMax()
         this.updateXPBarViewer()
 
+        this.points = this.points + 3
         this.level = this.level + 1
 
+        this.updateXPPointsViewer()
         this.updateLevelViewer()
     },
 
@@ -81,6 +85,10 @@ const XP = {
 
     updateLevelViewer(){
         this.levelViewer.innerText = `Nível ${this.level}`
+    },
+
+    updateXPPointsViewer(){
+        this.xpPointsViewer.value = this.points
     },
 
     updateXPBarViewer(){
@@ -417,6 +425,18 @@ const Game = {
                 else XP.level = Number(XP.level)
 
                 XP.updateLevelViewer()
+            }
+
+            // Escopo para a iniciação dos pontos de xp
+            {
+                if(XP.points == '' || XP.points == null || isNaN(XP.points) || XP.points == undefined){
+                    XP.points = 3
+                    localStorage.setItem('xpPoints', `${XP.points}`)
+                }
+
+                else XP.points = Number(XP.points)
+
+                XP.updateXPPointsViewer()
             }
 
             // Escopo para a inicialização do XP atual
