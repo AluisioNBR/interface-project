@@ -60,8 +60,9 @@ const XP = {
         else this.updateXPBarViewer()
     },
 
-    payWithPoints(){
-        this.points = this.points - 1
+    payWithPoints(dec){
+        this.points = this.points - dec
+        this.updateXPPointsViewer()
     },
 
     levelUp(){
@@ -146,16 +147,27 @@ const Attributes = {
         ]
 
         for (let x = 0; x < attributes.length; x++) {
+            let payPoints = 0
             
             if(Number(attributes[x].value) > current[x]){
+                console.log(payPoints, XP.points)
                 if(XP.points < 1){
                     let pay = Number(indicator[x].value) * 50
                     Money.payment(pay)
                 }
 
                 else {
-                    XP.payWithPoints()
-                    XP.updateXPPointsViewer()
+                    payPoints = payPoints + (indicator[x].value - current[x])
+
+                    if(payPoints > XP.points){
+                        let pay = (payPoints - XP.points) * 50
+                        Money.payment(pay)
+                        XP.payWithPoints(XP.points)
+                    }
+
+                    else {
+                        XP.payWithPoints(payPoints)
+                    }
                 }
             }
             
