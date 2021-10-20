@@ -1,5 +1,5 @@
 // Ligação com os botões do HTML
-const confirmButton = document.getElementById('confirm-button'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button')
+const confirmButton = document.getElementById('confirm-button'), confirmUpdate = document.getElementById('confirm-update'), cancelUpdate = document.getElementById('cancel-update'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button')
 
 function saveData(){
     localStorage.setItem('balance', `${Money.balance}`)
@@ -20,7 +20,13 @@ function saveData(){
 
 // Objeto para cuidar dos pop-ups
 const PopUp = {
-    
+    openConfirmUpdatePopUp(){
+        document.getElementById('confirmUpdatePopUp').classList.add('active')
+    },
+
+    closeConfirmUpdatePopUp(){
+        document.getElementById('confirmUpdatePopUp').classList.remove('active')
+    }
 }
 
 // Objeto para cuidar do dinheiro do player
@@ -214,6 +220,7 @@ const Attributes = {
         }
 
         Money.updateMoneyVisor(Money.balance)
+        PopUp.closeConfirmUpdatePopUp()
     }
 }
 
@@ -495,7 +502,9 @@ const Game = {
 
         // Escopo para os eventos de click dos botões do HTML
         {
-            confirmButton.addEventListener('click', Attributes.updateAttributes)
+            confirmButton.addEventListener('click', PopUp.openConfirmUpdatePopUp)
+            confirmUpdate.addEventListener('click', Attributes.updateAttributes)
+            cancelUpdate.addEventListener('click', PopUp.closeConfirmUpdatePopUp)
             saveButton.addEventListener('click', saveData)
             closeButton.addEventListener('click', function (){
                 alert('Hi')
