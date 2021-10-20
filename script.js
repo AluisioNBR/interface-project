@@ -18,27 +18,33 @@ function saveData(){
     alert("Progresso salvo!!")
 }
 
+// Objeto para cuidar dos pop-ups
+const PopUp = {
+    
+}
+
 // Objeto para cuidar do dinheiro do player
 const Money = {
     // Saldo do player
     balance: localStorage.getItem('balance'),
     
     // Método de aumento de dinheiro
-    increment(inc){
+    increment(inc=0){
         this.balance = this.balance + inc
     },
 
     // Método de pagamento/diminuição de dinheiro
-    payment(pay){
+    payment(pay=0){
         this.balance = this.balance - pay
     },
 
     // Método para a atualização do visor de saldo no HTML
-    updateMoneyVisor(balance){
+    updateMoneyVisor(balance=this.balance){
         const visor = document.getElementById('money')
         visor.value = balance
     }
 }
+
 // Objeto para cuidar dos pontos de experiência e do nível do player
 const XP = {
     points: localStorage.getItem('xpPoints'),

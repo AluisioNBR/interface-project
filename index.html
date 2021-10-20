@@ -15,15 +15,15 @@
 					<img id="avatar" src="" alt="Avatar">
 
 					<div id="money-content">
-						<label for="money">Dinheiro:</label><br>
-						<input type="number" name="money" id="money" readonly>
+						<label for="money" title="Dinheiro">Dinheiro:</label><br>
+						<input type="number" name="money" id="money" title="Dinheiro" readonly placeholder="0">
 					</div>
 
 					<div id="level-content">
-						<label for="xp-bar" id="level-viewer">Nível 1</label><br>
-						<input type="range" name="xp-bar" id="xp-bar" min="1" max="100" value="0" readonly><br>
-						<label for="xp-points">xp points:</label>
-						<input type="number" name="xp-points" id="xp-points" readonly value="3">
+						<label for="xp-bar" title="Nível" id="level-viewer">Nível 1</label><br>
+						<input type="range" title="Nível" name="xp-bar" id="xp-bar" min="1" max="100" value="0" readonly><br>
+						<label for="xp-points" title="Pontos de XP">XP points:</label>
+						<input type="number" title="Pontos de XP" name="xp-points" id="xp-points" readonly value="3">
 					</div>
 				</div>
 				
@@ -31,42 +31,47 @@
 					<h4>Status</h4>
 					<ul>
 						<li>
-							<label for="str">str</label><br>
+							<label for="str" title="Força">str</label><br>
 							<div class="progress">
-								<input class="progress-bar" id="str" name="str" type="range" max="20" value="3" readonly>
-								<input type="number" class="progress-bar-value" id="indicator-str" readonly value="3">
+								<input class="progress-bar" title="Força" id="str" name="str" type="range" max="20" value="3" readonly>
+								<label for="indicator-str" hidden>Indicador de Força</label>
+								<input type="number" title="Indicador de Força" class="progress-bar-value" id="indicator-str" name="indicator-str" readonly value="3">
 							</div>
 						</li>
 						
 						<li>
-							<label for="vit">vit</label><br>
+							<label for="vit" title="Vitalidade">vit</label><br>
 							<div class="progress">
-								<input class="progress-bar" name="vit" id="vit" type="range" max="20" value="3" readonly>
-								<input type="number" class="progress-bar-value" id="indicator-vit" readonly value="3">
+								<input class="progress-bar" title="Vitalidade" name="vit" id="vit" type="range" max="20" value="3" readonly>
+								<label for="indicator-vit" hidden>Indicador de Vitalidade</label>
+								<input type="number" title="Indicador de Vitalidade" class="progress-bar-value" name="indicator-vit" id="indicator-vit" readonly value="3">
 							</div>
 						</li>
 
 						<li>
-							<label for="spd">spd</label><br>
+							<label for="spd" title="Velocidade">spd</label><br>
 							<div class="progress">
-								<input class="progress-bar" name="spd" id="spd" type="range" max="20" value="3" readonly>
-								<input type="number" class="progress-bar-value" id="indicator-spd" readonly value="3">
+								<input class="progress-bar" title="Velocidade" name="spd" id="spd" type="range" max="20" value="3" readonly>
+								<label for="indicator-spd" hidden>Indicador de Velocidade</label>
+								<input type="number" title="Indicador de Velocidade" class="progress-bar-value" name="indicator-spd" id="indicator-spd" readonly value="3">
 							</div>
 						</li>
 
 						<li>
-							<label for="dex">dex</label><br>
+							<label for="dex" title="Constituição">dex</label><br>
 							<div class="progress">
-								<input class="progress-bar" name="dex" id="dex" type="range" max="20" value="3" readonly>
-								<input type="number" class="progress-bar-value" id="indicator-dex" readonly value="3">
+								<input class="progress-bar" title="Constituição" name="dex" id="dex" type="range" max="20" value="3" readonly>
+								<label for="indicator-dex" hidden>Indicador de Constituição</label>
+								<input type="number" title="Indicador de Constituição" class="progress-bar-value" name="indicator-dex" id="indicator-dex" readonly value="3">
 							</div>
 						</li>
 
 						<li>
-							<label for="int">int</label><br>
+							<label for="int" title="Inteligência">int</label><br>
 							<div class="progress">
-								<input class="progress-bar" name="int" id="int" type="range" max="20" value="3" readonly>
-								<input type="number" class="progress-bar-value" id="indicator-int" readonly value="3">
+								<input class="progress-bar" title="Inteligência" name="int" id="int" type="range" max="20" value="3" readonly>
+								<label for="indicator-int" hidden>Indicador de Inteligência</label>
+								<input type="number" title="Indicador de Inteligência" class="progress-bar-value" name="indicator-int" id="indicator-int" readonly value="3">
 							</div>
 						</li>
 					</ul>
@@ -78,6 +83,8 @@
 					<button class="button" id="close-button">Fechar</button>
 				</p>
 			</div>
+
+			
 		</main>
 	</body>
 </html>
