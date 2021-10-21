@@ -20,12 +20,38 @@ function saveData(){
 
 // Objeto para cuidar dos pop-ups
 const PopUp = {
-    openConfirmUpdatePopUp(){
-        document.getElementById('confirmUpdatePopUp').classList.add('active')
-    },
+    // Objeto para cuidar do pop-up de confirmação de atualização
+    confirmUpdate: {
+        element: document.getElementById('confirmUpdatePopUp'),
+        costMsg: document.getElementById('cost'),
 
-    closeConfirmUpdatePopUp(){
-        document.getElementById('confirmUpdatePopUp').classList.remove('active')
+        open(){
+            PopUp.confirmUpdate.element.classList.add('active')
+            PopUp.confirmUpdate.updateMsg()
+        },
+
+        close(){
+            PopUp.confirmUpdate.element.classList.remove('active')
+        },
+
+        updateMsg(){
+            const values = Attributes.priceCalc()
+            let newText
+
+            if(values[0] > 0 && values[2] && values[1] > 0) newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins\nVai recuperar ${values[1]} coins`
+            
+            else if(values[0] > 0 && values[2]) newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins`
+            
+            else if(values[1] > 0 && values[0] > 0) newText = `Serão necessários ${values[0]} coins\nVai recuperar ${values[1]} coins`
+            
+            else if(values[1] > 0 && values[2] > 0) newText = `Serão necessários ${values[2]} pontos de experiência\nVai recuperar ${values[1]} coins`
+
+            else if(values[1] > 0) newText = `Vai recuperar ${values[1]} coins`
+
+            else newText = `Serão necessários ${values[2]} pontos de experiência`
+
+            PopUp.confirmUpdate.costMsg.innerText = newText
+        }
     }
 }
 
@@ -147,6 +173,57 @@ const Attributes = {
         this.int = value
     },
 
+    priceCalc(){
+        const attributes = document.getElementsByClassName('progress-bar'), indicator = document.getElementsByClassName('progress-bar-value')
+        const current = [
+            Attributes.str,
+            Attributes.vit,
+            Attributes.spd,
+            Attributes.dex,
+            Attributes.int
+        ]
+
+        let paymentTotal = 0, incrementTotal = 0, pointsToPay = 0
+
+        for (let x = 0; x < attributes.length; x++) {
+            let payPoints = 0
+            
+            if(Number(attributes[x].value) > current[x]){
+                if(XP.points < 1){
+                    let pay = Number(indicator[x].value) * 50
+                    paymentTotal = paymentTotal + pay
+                }
+
+                else {
+                    payPoints = payPoints + (indicator[x].value - current[x])
+
+                    if(payPoints > XP.points){
+                        let pay = (payPoints - XP.points) * 50
+                        paymentTotal = paymentTotal + pay
+                        pointsToPay = pointsToPay + payPoints
+                    }
+
+                    else {
+                        pointsToPay = pointsToPay + payPoints
+                    }
+                }
+            }
+            
+            else if(Number(attributes[x].value) < current[x]){
+                let inc = Number(indicator[x].value) * 25
+                incrementTotal = incrementTotal + inc
+            }
+
+            else continue
+
+            if(pointsToPay > XP.points){
+                pointsToPay = XP.points
+            }
+        }
+
+        return [paymentTotal, incrementTotal, pointsToPay]
+    },
+
     // Método para a atualização dos atributos do player
     updateAttributes(){
         const attributes = document.getElementsByClassName('progress-bar'), indicator = document.getElementsByClassName('progress-bar-value')
@@ -162,7 +239,6 @@ const Attributes = {
             let payPoints = 0
             
             if(Number(attributes[x].value) > current[x]){
-                console.log(payPoints, XP.points)
                 if(XP.points < 1){
                     let pay = Number(indicator[x].value) * 50
                     Money.payment(pay)
@@ -220,7 +296,7 @@ const Attributes = {
         }
 
         Money.updateMoneyVisor(Money.balance)
-        PopUp.closeConfirmUpdatePopUp()
+        PopUp.confirmUpdate.close()
     }
 }
 
@@ -502,9 +578,9 @@ const Game = {
 
         // Escopo para os eventos de click dos botões do HTML
         {
-            confirmButton.addEventListener('click', PopUp.openConfirmUpdatePopUp)
+            confirmButton.addEventListener('click', PopUp.confirmUpdate.open)
             confirmUpdate.addEventListener('click', Attributes.updateAttributes)
-            cancelUpdate.addEventListener('click', PopUp.closeConfirmUpdatePopUp)
+            cancelUpdate.addEventListener('click', PopUp.confirmUpdate.close)
             saveButton.addEventListener('click', saveData)
             closeButton.addEventListener('click', function (){
                 alert('Hi')
