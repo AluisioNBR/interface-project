@@ -169,6 +169,12 @@ li{
 	padding: .5rem;
 }
 
+#buttons-conteiner{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .4rem;
+}
 
 #confirm-update, #confirm-button, #save-button, #closeSave{
 	color: #fff;
@@ -221,3 +227,9 @@ li{
 }
 
 /* #################################### */
+
+@media(max-width: 720px){
+	#buttons-conteiner{
+		flex-direction: column-reverse;
+	}
+}
