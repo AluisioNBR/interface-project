@@ -1,22 +1,5 @@
 // Ligação com os botões do HTML
-const confirmButton = document.getElementById('confirm-button'), confirmUpdate = document.getElementById('confirm-update'), cancelUpdate = document.getElementById('cancel-update'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button')
-
-function saveData(){
-    localStorage.setItem('balance', `${Money.balance}`)
-
-    localStorage.setItem('xpCurrent', `${XP.current}`)
-    localStorage.setItem('level', `${XP.level}`)
-    localStorage.setItem('xpPoints', `${XP.points}`)
-    localStorage.setItem('xpMax', `${XP.max}`)
-
-    localStorage.setItem('str', `${Attributes.str}`)
-    localStorage.setItem('vit', `${Attributes.vit}`)
-    localStorage.setItem('spd', `${Attributes.spd}`)
-    localStorage.setItem('dex', `${Attributes.dex}`)
-    localStorage.setItem('int', `${Attributes.int}`)
-
-    alert("Progresso salvo!!")
-}
+const confirmButton = document.getElementById('confirm-button'), confirmUpdate = document.getElementById('confirm-update'), cancelUpdate = document.getElementById('cancel-update'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button'), closeSave = document.getElementById('closeSave')
 
 // Objeto para cuidar dos pop-ups
 const PopUp = {
@@ -36,21 +19,37 @@ const PopUp = {
 
         updateMsg(){
             const values = Attributes.priceCalc()
-            let newText
-
-            if(values[0] > 0 && values[2] && values[1] > 0) newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins\nVai recuperar ${values[1]} coins`
-            
-            else if(values[0] > 0 && values[2]) newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins`
-            
-            else if(values[1] > 0 && values[0] > 0) newText = `Serão necessários ${values[0]} coins\nVai recuperar ${values[1]} coins`
-            
-            else if(values[1] > 0 && values[2] > 0) newText = `Serão necessários ${values[2]} pontos de experiência\nVai recuperar ${values[1]} coins`
-
-            else if(values[1] > 0) newText = `Vai recuperar ${values[1]} coins`
-
-            else newText = `Serão necessários ${values[2]} pontos de experiência`
+            let newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins\nVai recuperar ${values[1]} coins`
 
             PopUp.confirmUpdate.costMsg.innerText = newText
+        }
+    },
+
+    saveData: {
+        pop: document.getElementById('saveDataPopUp'),
+
+        open(){
+            PopUp.saveData.save()
+            PopUp.saveData.pop.classList.add('active')
+        },
+
+        close(){
+            PopUp.saveData.pop.classList.remove('active')
+        },
+
+        save(){
+            localStorage.setItem('balance', `${Money.balance}`)
+        
+            localStorage.setItem('xpCurrent', `${XP.current}`)
+            localStorage.setItem('level', `${XP.level}`)
+            localStorage.setItem('xpPoints', `${XP.points}`)
+            localStorage.setItem('xpMax', `${XP.max}`)
+        
+            localStorage.setItem('str', `${Attributes.str}`)
+            localStorage.setItem('vit', `${Attributes.vit}`)
+            localStorage.setItem('spd', `${Attributes.spd}`)
+            localStorage.setItem('dex', `${Attributes.dex}`)
+            localStorage.setItem('int', `${Attributes.int}`)
         }
     }
 }
@@ -173,6 +172,7 @@ const Attributes = {
         this.int = value
     },
 
+    // Método para calcular os preços dos aprimoramentos
     priceCalc(){
         const attributes = document.getElementsByClassName('progress-bar'), indicator = document.getElementsByClassName('progress-bar-value')
         const current = [
@@ -189,7 +189,7 @@ const Attributes = {
             let payPoints = 0
             
             if(Number(attributes[x].value) > current[x]){
-                if(XP.points < 1){
+                if(XP.points < 1 || pointsToPay >= XP.points){
                     let pay = Number(indicator[x].value) * 50
                     paymentTotal = paymentTotal + pay
                 }
@@ -581,7 +581,8 @@ const Game = {
             confirmButton.addEventListener('click', PopUp.confirmUpdate.open)
             confirmUpdate.addEventListener('click', Attributes.updateAttributes)
             cancelUpdate.addEventListener('click', PopUp.confirmUpdate.close)
-            saveButton.addEventListener('click', saveData)
+            saveButton.addEventListener('click', PopUp.saveData.open)
+            closeSave.addEventListener('click', PopUp.saveData.close)
             closeButton.addEventListener('click', function (){
                 alert('Hi')
             })

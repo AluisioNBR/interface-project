@@ -169,26 +169,45 @@ li{
 	padding: .5rem;
 }
 
-#confirm-update, #confirm-button, #save-button{
+
+#confirm-update, #confirm-button, #save-button, #closeSave{
 	color: #fff;
-	background-color: #0b0;
+	background-color: #0a0;
 	border: none;
 }
 
-#confirm-update:hover, #confirm-button:hover, #save-button:hover{
+#save-button, #closeSave{
+	font-size: 1.2rem;
+	padding: .5rem 1rem;
+}
+
+#confirm-update:hover, #confirm-button:hover{
 	background-color: #0d0;
+	cursor: pointer;
+}
+
+#save-button:hover, #closeSave:hover{
+	background-color: #fa0;
 	cursor: pointer;
 }
 
 #cancel-update, #close-button{
 	color: #fff;
-	background-color: #b00;
+	background-color: #a00;
 	border: none;
 }
 
 #cancel-update:hover, #close-button:hover{
 	background-color: #d00;
 	cursor: pointer;
+}
+
+#saveDataPopUp .pop-up{
+	padding: 4rem 2rem;
+}
+
+#save-text{
+	font-size: 2rem;
 }
 
 /* Classes de Cores Dinâmicas para o JS */
