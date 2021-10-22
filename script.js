@@ -6,6 +6,7 @@ const PopUp = {
     // Objeto para cuidar do pop-up de confirmação de atualização
     confirmUpdate: {
         element: document.getElementById('confirmUpdatePopUp'),
+        confirmMsg: document.getElementById('confirm-text'),
         costMsg: document.getElementById('cost'),
 
         open(){
@@ -21,7 +22,25 @@ const PopUp = {
             const values = Attributes.priceCalc()
             let newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins\nVai recuperar ${values[1]} coins`
 
-            PopUp.confirmUpdate.costMsg.innerText = newText
+            console.log(values[0] > Money.balance)
+            if(values[0] > Money.balance){
+                newText = "Seus coins são insifucientes\npara realizar o aprimoramento!"
+                PopUp.confirmUpdate.confirmMsg.innerText = newText
+                PopUp.confirmUpdate.costMsg.innerText = ''
+
+                if(!confirmUpdate.classList.contains('disable')){
+                    confirmUpdate.classList.add('disable')
+                }
+            }
+            
+            else {
+                PopUp.confirmUpdate.confirmMsg.innerText = "Deseja confirmar o aprimoramento ?"
+                PopUp.confirmUpdate.costMsg.innerText = newText
+
+                if(confirmUpdate.classList.contains('disable')){
+                    confirmUpdate.classList.remove('disable')
+                }
+            }
         }
     },
 

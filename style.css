@@ -217,6 +217,12 @@ li{
 	font-size: 2rem;
 }
 
+.disable{
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+}
+
 /* Classes de Cores Dinâmicas para o JS */
 
 .onUp{
