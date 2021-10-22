@@ -33,7 +33,7 @@
 						<li>
 							<label for="str" title="Força">str</label><br>
 							<div class="progress">
-								<input class="progress-bar" title="Força" id="str" name="str" type="range" max="20" value="3" readonly>
+								<input class="progress-bar" title="Força" id="str" name="str" type="range" max="100" value="3" readonly>
 								<label for="indicator-str" hidden>Indicador de Força</label>
 								<input type="number" title="Indicador de Força" class="progress-bar-value" id="indicator-str" name="indicator-str" readonly value="3">
 							</div>
@@ -42,7 +42,7 @@
 						<li>
 							<label for="vit" title="Vitalidade">vit</label><br>
 							<div class="progress">
-								<input class="progress-bar" title="Vitalidade" name="vit" id="vit" type="range" max="20" value="3" readonly>
+								<input class="progress-bar" title="Vitalidade" name="vit" id="vit" type="range" max="100" value="3" readonly>
 								<label for="indicator-vit" hidden>Indicador de Vitalidade</label>
 								<input type="number" title="Indicador de Vitalidade" class="progress-bar-value" name="indicator-vit" id="indicator-vit" readonly value="3">
 							</div>
@@ -51,7 +51,7 @@
 						<li>
 							<label for="spd" title="Velocidade">spd</label><br>
 							<div class="progress">
-								<input class="progress-bar" title="Velocidade" name="spd" id="spd" type="range" max="20" value="3" readonly>
+								<input class="progress-bar" title="Velocidade" name="spd" id="spd" type="range" max="100" value="3" readonly>
 								<label for="indicator-spd" hidden>Indicador de Velocidade</label>
 								<input type="number" title="Indicador de Velocidade" class="progress-bar-value" name="indicator-spd" id="indicator-spd" readonly value="3">
 							</div>
@@ -60,7 +60,7 @@
 						<li>
 							<label for="dex" title="Constituição">dex</label><br>
 							<div class="progress">
-								<input class="progress-bar" title="Constituição" name="dex" id="dex" type="range" max="20" value="3" readonly>
+								<input class="progress-bar" title="Constituição" name="dex" id="dex" type="range" max="100" value="3" readonly>
 								<label for="indicator-dex" hidden>Indicador de Constituição</label>
 								<input type="number" title="Indicador de Constituição" class="progress-bar-value" name="indicator-dex" id="indicator-dex" readonly value="3">
 							</div>
@@ -69,7 +69,7 @@
 						<li>
 							<label for="int" title="Inteligência">int</label><br>
 							<div class="progress">
-								<input class="progress-bar" title="Inteligência" name="int" id="int" type="range" max="20" value="3" readonly>
+								<input class="progress-bar" title="Inteligência" name="int" id="int" type="range" max="100" value="3" readonly>
 								<label for="indicator-int" hidden>Indicador de Inteligência</label>
 								<input type="number" title="Indicador de Inteligência" class="progress-bar-value" name="indicator-int" id="indicator-int" readonly value="3">
 							</div>
@@ -88,7 +88,7 @@
 				</p>
 			</div>
 
-			<div class="popup-conteiner" id="confirmUpdatePopUp">
+			<div class="popup-conteiner not-active" id="confirmUpdatePopUp">
 				<div class="pop-up">
 					<p id="confirm-text">
 						Deseja confirmar o aprimoramento ?
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 
-			<div class="popup-conteiner" id="saveDataPopUp">
+			<div class="popup-conteiner not-active" id="saveDataPopUp">
 				<div class="pop-up">
 					<p id="save-text">
 						Progresso Salvo!!

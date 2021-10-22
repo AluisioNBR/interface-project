@@ -10,36 +10,33 @@ const PopUp = {
         costMsg: document.getElementById('cost'),
 
         open(){
+            PopUp.confirmUpdate.element.classList.remove('not-active')
             PopUp.confirmUpdate.element.classList.add('active')
             PopUp.confirmUpdate.updateMsg()
         },
 
         close(){
             PopUp.confirmUpdate.element.classList.remove('active')
+            PopUp.confirmUpdate.element.classList.add('not-active')
         },
 
         updateMsg(){
             const values = Attributes.priceCalc()
             let newText = `Serão necessários ${values[2]} pontos de experiência, e ${values[0]} coins\nVai recuperar ${values[1]} coins`
 
-            console.log(values[0] > Money.balance)
             if(values[0] > Money.balance){
                 newText = "Seus coins são insifucientes\npara realizar o aprimoramento!"
                 PopUp.confirmUpdate.confirmMsg.innerText = newText
                 PopUp.confirmUpdate.costMsg.innerText = ''
 
-                if(!confirmUpdate.classList.contains('disable')){
-                    confirmUpdate.classList.add('disable')
-                }
+                if(!confirmUpdate.classList.contains('disable')) confirmUpdate.classList.add('disable')
             }
             
             else {
                 PopUp.confirmUpdate.confirmMsg.innerText = "Deseja confirmar o aprimoramento ?"
                 PopUp.confirmUpdate.costMsg.innerText = newText
 
-                if(confirmUpdate.classList.contains('disable')){
-                    confirmUpdate.classList.remove('disable')
-                }
+                if(confirmUpdate.classList.contains('disable'))  confirmUpdate.classList.remove('disable')
             }
         }
     },
@@ -49,11 +46,13 @@ const PopUp = {
 
         open(){
             PopUp.saveData.save()
+            PopUp.saveData.pop.classList.remove('not-active')
             PopUp.saveData.pop.classList.add('active')
         },
 
         close(){
             PopUp.saveData.pop.classList.remove('active')
+            PopUp.saveData.pop.classList.add('not-active')
         },
 
         save(){
