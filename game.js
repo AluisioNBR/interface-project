@@ -1,5 +1,12 @@
 // Ligação com os botões do HTML
-const confirmButton = document.getElementById('confirm-button'), confirmUpdate = document.getElementById('confirm-update'), cancelUpdate = document.getElementById('cancel-update'), closeButton = document.getElementById('close-button'), saveButton = document.getElementById('save-button'), closeSave = document.getElementById('closeSave')
+const ButtonsHTML = {
+    confirmButton: document.getElementById('confirm-button'),
+    confirmUpdate: document.getElementById('confirm-update'),
+    cancelUpdate: document.getElementById('cancel-update'),
+    closeButton: document.getElementById('close-button'),
+    saveButton: document.getElementById('save-button'),
+    closeSave: document.getElementById('closeSave')
+}
 
 // Objeto para cuidar dos pop-ups
 const PopUp = {
@@ -29,14 +36,14 @@ const PopUp = {
                 PopUp.confirmUpdate.confirmMsg.innerText = newText
                 PopUp.confirmUpdate.costMsg.innerText = ''
 
-                if(!confirmUpdate.classList.contains('disable')) confirmUpdate.classList.add('disable')
+                if(!ButtonsHTML.confirmUpdate.classList.contains('disable')) ButtonsHTML.confirmUpdate.classList.add('disable')
             }
             
             else {
                 PopUp.confirmUpdate.confirmMsg.innerText = "Deseja confirmar o aprimoramento ?"
                 PopUp.confirmUpdate.costMsg.innerText = newText
 
-                if(confirmUpdate.classList.contains('disable'))  confirmUpdate.classList.remove('disable')
+                if(ButtonsHTML.confirmUpdate.classList.contains('disable')) ButtonsHTML.confirmUpdate.classList.remove('disable')
             }
         }
     },
@@ -75,7 +82,7 @@ const PopUp = {
 // Objeto para cuidar do dinheiro do player
 const Money = {
     // Saldo do player
-    balance: localStorage.getItem('balance'),
+    balance: 0,
     
     // Método de aumento de dinheiro
     increment(inc=0){
@@ -88,18 +95,18 @@ const Money = {
     },
 
     // Método para a atualização do visor de saldo no HTML
-    updateMoneyVisor(balance=this.balance){
+    updateMoneyVisor(){
         const visor = document.getElementById('money')
-        visor.value = balance
+        visor.value = this.balance
     }
 }
 
 // Objeto para cuidar dos pontos de experiência e do nível do player
 const XP = {
-    points: localStorage.getItem('xpPoints'),
-    level: localStorage.getItem('level'),
-    current: localStorage.getItem('xpCurrent'),
-    max: localStorage.getItem('xpMax'),
+    points: 3,
+    level: 1,
+    current: 0,
+    max: 100,
 
     levelViewer: document.getElementById('level-viewer'),
     xpBarViewer: document.getElementById('xp-bar'),
@@ -163,11 +170,11 @@ const XP = {
 // Objeto para cuidar dos atributos do player
 const Attributes = {
     // Atributos do player
-    str: localStorage.getItem('str'),
-    vit: localStorage.getItem('vit'),
-    spd: localStorage.getItem('spd'),
-    dex: localStorage.getItem('dex'),
-    int: localStorage.getItem('int'),
+    str: 3,
+    vit: 3,
+    spd: 3,
+    dex: 3,
+    int: 3,
 
     // Métodos para a atualização individual dos atributos do player
     updateStr(value){
@@ -361,7 +368,6 @@ const ChangeAttributesValues = {
             }
             
             indicator.classList.add('onDown')
-            indicator.value = current
         }
 
         else if(attribute < current){
@@ -371,14 +377,13 @@ const ChangeAttributesValues = {
             }
             
             indicator.classList.add('onUp')
-            indicator.value = current
         }
 
         else {
             ChangeAttributesValues.resetColors(indicator)
-
-            indicator.value = current
         }
+
+        indicator.value = current
     },
 
     // Método para resetar as cores dos valores
@@ -431,184 +436,197 @@ const ChangeAttributesValues = {
 // Objeto para monitorar a execução do jogo
 const Game = {
     init(){
-        // Escopo para a primeira atualização do visor de dinheiro
-        {
-            if(Money.balance == "" || Money.balance == null || isNaN(Money.balance) || Money.balance == undefined){
-                Money.balance = 5000
-                localStorage.setItem('balance', `${Money.balance}`)
-                Money.updateMoneyVisor(Money.balance)
-            }
+        this.firstUpdateMoney()
 
-            else{
-                Money.balance = Number(Money.balance)
-                Money.updateMoneyVisor(Money.balance)
-            }
-        }
+        this.firstUpdateXP()
 
-        // Escopo para a inicialização dos atributos
-        {
-            // Atualização do str
-            {
-                if(Attributes.str == '' || Attributes.str == null || isNaN(Attributes.str) || Attributes.str == "undefined") {
-                    Attributes.updateStr(3)
-                    localStorage.setItem('str', `${Attributes.str}`)
-                }
+        this.firstUpdateAttributes()
 
-                else Attributes.str = Number(Attributes.str)
-            }
+        this.initChange()
 
-            // Atualização do vit
-            {
-                if(Attributes.vit == '' || Attributes.vit == null || isNaN(Attributes.vit) || Attributes.vit == undefined) {
-                    Attributes.updateVit(3)
-                    localStorage.setItem('vit', `${Attributes.vit}`)
-                }
-
-                else Attributes.vit = Number(Attributes.vit)
-            }
-
-            // Atualização do spd
-            {
-                if(Attributes.spd == '' || Attributes.spd == null || isNaN(Attributes.spd) || Attributes.spd == undefined) {
-                    Attributes.updateSpd(3)
-                    localStorage.setItem('spd', `${Attributes.spd}`)
-                }
-
-                else Attributes.spd = Number(Attributes.spd)
-            }
-
-            // Atualização do dex
-            {
-                if(Attributes.dex == '' || Attributes.dex == null || isNaN(Attributes.dex) || Attributes.dex == undefined){
-                    Attributes.updateDex(3)
-                    localStorage.setItem('dex', `${Attributes.dex}`)
-                }
-
-                else Attributes.dex = Number(Attributes.dex)
-            }
-
-            // Atualização do int
-            {
-                if(Attributes.int == '' || Attributes.int == null || isNaN(Attributes.int) || Attributes.int == undefined) {
-                    Attributes.updateInt(3)
-                    localStorage.setItem('int', `${Attributes.int}`)
-                }
-
-                else Attributes.int = Number(Attributes.int)
-            }
-
-            // Atualização da exibição dos atributos
-            let progressBar = document.getElementsByClassName('progress-bar'), progressBarValue = document.getElementsByClassName('progress-bar-value')
-
-            for (let x = 0; x < 5; x++) {
-                switch (x) {
-                    case 0:
-                        progressBar[0].value = Attributes.str
-                        progressBarValue[0].value = Attributes.str
-                        break;
-
-                    case 1:
-                        progressBar[1].value = Attributes.vit
-                        progressBarValue[1].value = Attributes.vit
-                        break;
-
-                    case 2:
-                        progressBar[2].value = Attributes.spd
-                        progressBarValue[2].value = Attributes.spd
-                        break;
-
-                    case 3:
-                        progressBar[3].value = Attributes.dex
-                        progressBarValue[3].value = Attributes.dex
-                        break;
-
-                    case 4:
-                        progressBar[4].value = Attributes.int
-                        progressBarValue[4].value = Attributes.int
-                        break;
-                
-                    default:
-                        break;
-                }
-                
-            }
-        }
-
-        // Escopo para os eventos de mudança dinâmica
-        {
-            ChangeAttributesValues.str.addEventListener('change', ChangeAttributesValues.strChange)
-            ChangeAttributesValues.vit.addEventListener('change', ChangeAttributesValues.vitChange)
-            ChangeAttributesValues.spd.addEventListener('change', ChangeAttributesValues.spdChange)
-            ChangeAttributesValues.dex.addEventListener('change', ChangeAttributesValues.dexChange)
-            ChangeAttributesValues.int.addEventListener('change', ChangeAttributesValues.intChange)
-        }
-
-        // Escopo para a iniciação do XP
-        {
-            // Escopo para a iniciação do nível
-            {
-                if(XP.level == '' || XP.level == null || isNaN(XP.level) || XP.level == undefined){
-                    XP.level = 1
-                    localStorage.setItem('level', `${XP.level}`)
-                }
-
-                else XP.level = Number(XP.level)
-
-                XP.updateLevelViewer()
-            }
-
-            // Escopo para a iniciação dos pontos de xp
-            {
-                if(XP.points == '' || XP.points == null || isNaN(XP.points) || XP.points == undefined){
-                    XP.points = 3
-                    localStorage.setItem('xpPoints', `${XP.points}`)
-                }
-
-                else XP.points = Number(XP.points)
-
-                XP.updateXPPointsViewer()
-            }
-
-            // Escopo para a inicialização do XP atual
-            {
-                if(XP.current == '' || XP.current == null || isNaN(XP.current) || XP.current == undefined){
-                    XP.current = 0
-                    localStorage.setItem('xpCurrent', `${XP.current}`)
-                }
-
-                else XP.current = Number(XP.current)
-
-                XP.updateXPBarViewer()
-            }
-
-            // Escopo para a inicialização do XP máximo
-            {
-                if(XP.max == '' || XP.max == null || isNaN(XP.max) || XP.max == undefined){
-                    XP.max = 100
-                    localStorage.setItem('xpMax', `${XP.max}`)
-                }
-
-                else XP.max = Number(XP.max)
-
-                XP.updateXPBarMax()
-            }
-        }
-
-        // Escopo para os eventos de click dos botões do HTML
-        {
-            confirmButton.addEventListener('click', PopUp.confirmUpdate.open)
-            confirmUpdate.addEventListener('click', Attributes.updateAttributes)
-            cancelUpdate.addEventListener('click', PopUp.confirmUpdate.close)
-            saveButton.addEventListener('click', PopUp.saveData.open)
-            closeSave.addEventListener('click', PopUp.saveData.close)
-            closeButton.addEventListener('click', function (){
-                alert('Hi')
-            })
-        }
+        this.initEventClick()
     },
 
     refresh(){
         this.init()
+    },
+
+    // Método para a primeira atualização do visor de dinheiro
+    firstUpdateMoney(){
+        let balance = localStorage.getItem('balance')
+        
+        if(balance == "" || balance == null || balance == undefined){
+            Money.increment(5000)
+            localStorage.setItem('balance', `${Money.balance}`)
+        }
+
+        else Money.increment(Number(balance))
+
+        Money.updateMoneyVisor()
+    },
+
+    // Método para a iniciação do XP
+    firstUpdateXP(){
+        let points = localStorage.getItem('xpPoints'), level = localStorage.getItem('level'), current = localStorage.getItem('xpCurrent'), max = localStorage.getItem('xpMax')
+        // Escopo para a iniciação do nível
+        {
+            if(level == '' || level == null || level == undefined){
+                XP.level = 1
+                localStorage.setItem('level', `${XP.level}`)
+            }
+
+            else XP.level = Number(level)
+
+            XP.updateLevelViewer()
+        }
+
+        // Escopo para a iniciação dos pontos de xp
+        {
+            if(points == '' || points == null || points == undefined){
+                XP.points = 3
+                localStorage.setItem('xpPoints', `${XP.points}`)
+            }
+
+            else XP.points = Number(points)
+
+            XP.updateXPPointsViewer()
+        }
+
+        // Escopo para a inicialização do XP atual
+        {
+            if(current == '' || current == null || current == undefined){
+                XP.current = 0
+                localStorage.setItem('xpCurrent', `${XP.current}`)
+            }
+
+            else XP.current = Number(current)
+
+            XP.updateXPBarViewer()
+        }
+
+        // Escopo para a inicialização do XP máximo
+        {
+            if(max == '' || max == null || max == undefined){
+                XP.max = 100
+                localStorage.setItem('xpMax', `${XP.max}`)
+            }
+
+            else XP.max = Number(max)
+
+            XP.updateXPBarMax()
+        }
+    },
+
+    // Método para a inicialização dos atributos
+    firstUpdateAttributes(){
+        let str = localStorage.getItem('str'), vit = localStorage.getItem('vit'), spd = localStorage.getItem('spd'), dex = localStorage.getItem('dex'), int = localStorage.getItem('int')
+        
+        // Atualização do str
+        {
+            if(str == '' || str == null || str == undefined) {
+                Attributes.updateStr(3)
+                localStorage.setItem('str', `${Attributes.str}`)
+            }
+
+            else Attributes.updateStr(Number(str))
+        }
+
+        // Atualização do vit
+        {
+            if(vit == '' || vit == null || vit == undefined) {
+                Attributes.updateVit(3)
+                localStorage.setItem('vit', `${Attributes.vit}`)
+            }
+
+            else Attributes.updateVit(Number(vit))
+        }
+
+        // Atualização do spd
+        {
+            if(spd == '' || spd == null || spd == undefined) {
+                Attributes.updateSpd(3)
+                localStorage.setItem('spd', `${Attributes.spd}`)
+            }
+
+            else Attributes.updateSpd(Number(spd))
+        }
+
+        // Atualização do dex
+        {
+            if(dex == '' || dex == null || dex == undefined){
+                Attributes.updateDex(3)
+                localStorage.setItem('dex', `${Attributes.dex}`)
+            }
+
+            else Attributes.updateDex(Number(dex))
+        }
+
+        // Atualização do int
+        {
+            if(int == '' || int == null || int == undefined) {
+                Attributes.updateInt(3)
+                localStorage.setItem('int', `${Attributes.int}`)
+            }
+
+            else Attributes.updateInt(Number(int))
+        }
+
+        // Atualização da exibição dos atributos
+        let progressBar = document.getElementsByClassName('progress-bar'), progressBarValue = document.getElementsByClassName('progress-bar-value')
+
+        for (let x = 0; x < 5; x++) {
+            switch (x) {
+                case 0:
+                    progressBar[0].value = Attributes.str
+                    progressBarValue[0].value = Attributes.str
+                    break;
+
+                case 1:
+                    progressBar[1].value = Attributes.vit
+                    progressBarValue[1].value = Attributes.vit
+                    break;
+
+                case 2:
+                    progressBar[2].value = Attributes.spd
+                    progressBarValue[2].value = Attributes.spd
+                    break;
+
+                case 3:
+                    progressBar[3].value = Attributes.dex
+                    progressBarValue[3].value = Attributes.dex
+                    break;
+
+                case 4:
+                    progressBar[4].value = Attributes.int
+                    progressBarValue[4].value = Attributes.int
+                    break;
+            
+                default:
+                    break;
+            }
+            
+        }
+    },
+
+    // Método para os eventos de mudança dinâmica
+    initChange(){
+        ChangeAttributesValues.str.addEventListener('change', ChangeAttributesValues.strChange)
+        ChangeAttributesValues.vit.addEventListener('change', ChangeAttributesValues.vitChange)
+        ChangeAttributesValues.spd.addEventListener('change', ChangeAttributesValues.spdChange)
+        ChangeAttributesValues.dex.addEventListener('change', ChangeAttributesValues.dexChange)
+        ChangeAttributesValues.int.addEventListener('change', ChangeAttributesValues.intChange)
+    },
+
+    // Método para os eventos de click dos botões do HTML
+    initEventClick(){
+        ButtonsHTML.confirmUpdate.addEventListener('click', Attributes.updateAttributes)
+        ButtonsHTML.confirmButton.addEventListener('click', PopUp.confirmUpdate.open)
+        ButtonsHTML.cancelUpdate.addEventListener('click', PopUp.confirmUpdate.close)
+        ButtonsHTML.saveButton.addEventListener('click', PopUp.saveData.open)
+        ButtonsHTML.closeSave.addEventListener('click', PopUp.saveData.close)
+        ButtonsHTML.closeButton.addEventListener('click', function (){
+            alert('Hi')
+        })
     }
 }
 
