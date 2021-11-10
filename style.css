@@ -43,6 +43,7 @@ li{
 .button, #money{
 	font-size: 1rem;
 	padding: .5rem;
+	cursor: pointer;
 }
 
 #money-content{
@@ -85,6 +86,9 @@ li{
 	width: 28%;
 	border: none;
 	padding: 0px;
+
+	background-color: inherit;
+	color: inherit;
 }
 
 .progress{
@@ -119,6 +123,9 @@ li{
 	font-size: 1rem;
 	width: 15%;
 	border: none;
+	
+	background-color: inherit;
+	color: inherit;
 }
 
 /* Estilos padrão dos pop-up */
