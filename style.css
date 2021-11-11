@@ -62,7 +62,7 @@ li{
 
 #xp-bar{
 	-webkit-appearance: none;
-    background: #00dd00;
+    background: #1755B4;
     outline: none;
     width: 100%;
     height: 15px;
@@ -76,7 +76,7 @@ li{
     height: 15px;
     border-radius: 0px; 
 
-    background: #03c203;
+    background: #0e385c;
 }
 
 #xp-points{

@@ -6,11 +6,13 @@ const Money = {
     // Método de aumento de dinheiro
     increment(inc=0){
         this.balance = this.balance + inc
+        Money.updateMoneyVisor()
     },
 
     // Método de pagamento/diminuição de dinheiro
     payment(pay=0){
         this.balance = this.balance - pay
+        Money.updateMoneyVisor()
     },
 
     // Método para a atualização do visor de saldo no HTML

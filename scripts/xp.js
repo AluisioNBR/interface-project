@@ -5,7 +5,7 @@ const XP = {
     current: 0,
     max: 100,
 
-    levelViewer: document.getElementById('level-viewer'),
+    levelViewer: document.querySelector('#level-viewer span'),
     xpBarViewer: document.getElementById('xp-bar'),
     xpPointsViewer: document.getElementById('xp-points'),
 

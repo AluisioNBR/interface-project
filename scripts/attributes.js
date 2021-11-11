@@ -150,8 +150,7 @@ const Attributes = {
             ChangeAttributesValues.resetColors(indicator[x])
             indicator[x].value = Number(attributes[x].value)
         }
-
-        Money.updateMoneyVisor(Money.balance)
+        
         PopUp.confirmUpdate.close()
     }
 }
