@@ -56,7 +56,7 @@ const XP = {
     },
 
     updateXPBarViewer(){
-        this.xpBarViewer.value = this.current    
+        this.xpBarViewer.value = this.current
     },
 
     updateXPBarMax(){
