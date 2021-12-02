@@ -8,19 +8,21 @@
 
 body{
 	height: 100vh;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
 
-#person-card{
+#person-card, #status-card{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: .5rem;
 
 	border: 1px #aaa solid;
-  	padding: 2rem 0px;
+  	padding: 2rem;
 }
 
 #avatar{
@@ -30,14 +32,21 @@ body{
 	border-radius: 15%;
 }
 
-#person-s1{
+#status-fixed{
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
+
+	position: fixed;
+	top: 3rem;
 }
 
 li{
 	list-style: none;
+}
+
+input.button{
+	border: none;
 }
 
 .button, #money{
@@ -145,7 +154,10 @@ li{
 	background-color: #00000076;	
 }
 
-.popup-conteiner.not-active{
+.not-active{
+	position: absolute;
+    z-index: -10;
+
 	opacity: 0;
 	visibility: hidden;
 
@@ -153,7 +165,7 @@ li{
 	animation-duration: .2s;
 }
 
-.popup-conteiner.active{
+.active{
 	opacity: 1;
 	visibility: visible;
 
@@ -215,6 +227,7 @@ li{
 
 #buttons-conteiner{
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: .4rem;
@@ -279,10 +292,6 @@ li{
 /* #################################### */
 
 @media(max-width: 720px){
-	#buttons-conteiner{
-		flex-direction: column-reverse;
-	}
-
 	#xp-points-indicator, #xp-points{
 		font-size: .9rem;
 	}

@@ -8,8 +8,6 @@ const Game = {
         this.firstUpdateAttributes()
 
         this.initChange()
-
-        this.initEventClick()
     },
 
     refresh(){
@@ -180,18 +178,6 @@ const Game = {
         ChangeAttributesValues.spd.addEventListener('change', ChangeAttributesValues.spdChange)
         ChangeAttributesValues.dex.addEventListener('change', ChangeAttributesValues.dexChange)
         ChangeAttributesValues.int.addEventListener('change', ChangeAttributesValues.intChange)
-    },
-
-    // Método para os eventos de click dos botões do HTML
-    initEventClick(){
-        ButtonsHTML.confirmUpdate.addEventListener('click', Attributes.updateAttributes)
-        ButtonsHTML.confirmButton.addEventListener('click', PopUp.confirmUpdate.open)
-        ButtonsHTML.cancelUpdate.addEventListener('click', PopUp.confirmUpdate.close)
-        ButtonsHTML.saveButton.addEventListener('click', PopUp.saveData.open)
-        ButtonsHTML.closeSave.addEventListener('click', PopUp.saveData.close)
-        ButtonsHTML.closeButton.addEventListener('click', function (){
-            alert('Hi')
-        })
     }
 }
 

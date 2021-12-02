@@ -5,40 +5,54 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="./style.css">
-		<script src="./scripts/buttonsHTML.js" defer></script>
 		<script src="./scripts/popUp.js" defer></script>
 		<script src="./scripts/money.js" defer></script>
 		<script src="./scripts/xp.js" defer></script>
 		<script src="./scripts/attributes.js" defer></script>
 		<script src="./scripts/changeAttributesValues.js" defer></script>
+		<script src="./scripts/buttonsHTML.js" defer></script>
 		<script src="./game.js" defer></script>
 		<title>Interface</title>
 	</head>
 	<body>
-		<main>
-			<div id="person-card">
-				<div id="person-s1">
-					<img id="avatar" src="" alt="Avatar" title="Avatar">
+		<header id="status-fixed">
+			<img id="avatar" src="" alt="Avatar" title="Avatar">
 
-					<div id="money-content">
-						<label for="money" title="Coins">
-							<img src="./img/coin.gif" title="Coin">
-							Coins:
-						</label><br>
-						<input type="number" name="money" id="money" title="Coins" readonly placeholder="0">
-					</div>
-
-					<div id="level-content">
-						<label for="xp-bar" title="Nível" id="level-viewer">
-							<img src="./img/XPpoint.gif" title="Ponto de Experiência">
-							<span>Nível 1</span>
-						</label><br>
-						<input type="range" title="Nível" name="xp-bar" id="xp-bar" min="1" max="100" value="0" readonly><br>
-						<label for="xp-points" title="Pontos de XP" id="xp-points-indicator">XP points:</label>
-						<input type="number" title="Pontos de XP" name="xp-points" id="xp-points" readonly value="3">
-					</div>
+				<div id="money-content">
+					<label for="money" title="Coins">
+						<img src="./img/coin.gif" title="Coin">
+						Coins:
+					</label><br>
+					<input type="number" name="money" id="money" title="Coins" readonly placeholder="0">
 				</div>
-				
+
+				<div id="level-content">
+					<label for="xp-bar" title="Nível" id="level-viewer">
+						<img src="./img/XPpoint.gif" title="Ponto de Experiência">
+						<span>Nível 1</span>
+					</label><br>
+					<input type="range" title="Nível" name="xp-bar" id="xp-bar" min="1" max="100" value="0" readonly><br>
+					<label for="xp-points" title="Pontos de XP" id="xp-points-indicator">XP points:</label>
+					<input type="number" title="Pontos de XP" name="xp-points" id="xp-points" readonly value="3">
+				</div>
+		</header>
+
+		<main>
+			<div id="person-card" class="not-active">
+				<div id="basic-informations">
+					<label for="name-inf">Nome:</label>
+					<input type="text" name="name-inf" class="button" id="name-inf" value="Test" v readonly><br>
+
+					<label for="breed-inf">Raça:</label>
+					<input type="text" name="breed-inf" class="button" id="breed-inf" value="Test" readonly><br>
+
+					<label for="class-inf">Classe:</label>
+					<input type="text" name="class-inf" class="button" id="class-inf" value="Test" readonly>
+				</div>
+				<button class="button" id="changeToStatus">Status</button>
+			</div>
+
+			<div id="status-card">
 				<div>
 					<h4>Status</h4>
 					<ul>
@@ -89,15 +103,16 @@
 					</ul>
 				</div>
 
-				<p id="buttons-conteiner">
-					<span>
-						<button class="button" id="save-button">Salvar</button>
-					</span>
-					<span>
+				<div id="buttons-conteiner">
+					<div>
+						<button class="button" id="changeToPerson">Personagem</button>
 						<button class="button" id="confirm-button">Confirmar Aprimoramento</button>
+					</div>
+					<div>
+						<button class="button" id="save-button">Salvar</button>
 						<button class="button" id="close-button">Fechar</button>
-					</span>
-				</p>
+					</div>
+				</div>
 			</div>
 
 			<div class="popup-conteiner not-active" id="confirmUpdatePopUp">

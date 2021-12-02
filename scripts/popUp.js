@@ -38,6 +38,39 @@ const PopUp = {
         }
     },
 
+    personCard: {
+        container: document.getElementById('person-card'),
+
+        open(){
+            PopUp.personCard.container.classList.remove('not-active')
+            PopUp.personCard.container.classList.add('active')
+        },
+        
+        close(){
+            PopUp.personCard.container.classList.remove('active')
+            PopUp.personCard.container.classList.add('not-active')
+
+            PopUp.statusCard.open()
+        }
+    },
+
+    statusCard:{
+        container: document.getElementById('status-card'),
+
+        open(){
+            PopUp.statusCard.container.classList.remove('not-active')
+            PopUp.statusCard.container.classList.add('active')
+        },
+
+        close(){
+            PopUp.statusCard.container.classList.remove('active')
+            PopUp.statusCard.container.classList.add('not-active')
+
+            PopUp.personCard.open()
+        }
+    },
+
+    // Objeto para cuidar do pop-up de salvamento
     saveData: {
         pop: document.getElementById('saveDataPopUp'),
 
