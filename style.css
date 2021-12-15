@@ -13,6 +13,8 @@ body{
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+
+	overflow-y: hidden;
 }
 
 #person-card, #status-card{
@@ -22,7 +24,7 @@ body{
 	gap: .5rem;
 
 	border: 1px #aaa solid;
-  	padding: 2rem;
+  	padding: 1.5rem;
 }
 
 #avatar{
@@ -38,7 +40,7 @@ body{
 	justify-content: space-evenly;
 
 	position: fixed;
-	top: 3rem;
+	top: 1.2rem;
 }
 
 li{
@@ -53,6 +55,10 @@ input.button{
 	font-size: 1rem;
 	padding: .5rem;
 	cursor: pointer;
+}
+
+.button:hover{
+	opacity: .8;
 }
 
 #money-content{
@@ -135,6 +141,29 @@ input.button{
 	
 	background-color: inherit;
 	color: inherit;
+}
+
+#inventory{
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+	width: 315.016px;
+	overflow-x: auto;
+}
+
+.slot, .slot figure img{
+	width: 64px;
+	height: 64px;
+}
+
+.slot{
+	margin: .2rem;
+	border: 1px #aaa solid;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Estilos padrão dos pop-up */
